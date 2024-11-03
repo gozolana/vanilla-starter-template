@@ -5,13 +5,14 @@
   "type": "module",
   "main": "dist/main.js",
   "scripts": {
-    "start": "node dist/main.js",
-    "dev": "tsx src/main.ts",
-    "watch": "tsx watch src/main.ts",
+    "start": "node ./dist/main.js",
+    "dev": "tsx ./src/main.ts",
+    "clean": "node -e \"fs.promises.rm('./dist', {recursive: true, force: true})\"",
+    "watch": "tsx watch ./src/main.ts",
     "build": "tsc",
     "test": "vitest",
     "test-coverage": "vitest --coverage",
-    "lint-fix": "eslint --cache --fix src/ && prettier --write src/"
+    "lint-fix": "eslint --cache --fix ./src/ && prettier --write ./src/"
   },
   "keywords": [],
   "author": "",
