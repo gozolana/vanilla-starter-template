@@ -1,142 +1,41 @@
 # vanilla-starter-template
 
-starter template for vanilla typescript project using vite lint prettier
+Starter template for vanilla typescript project.
 
-## Initialize node project
+## 依存パッケージ
 
-```sh
-npm init --y
+すべてdevDependencies
+
+- typescript 開発
+  - typescript: typescript で書けるようにする
+  - tsx: ts ファイルを直接実行できるようにする
+- lint・整形
+  - eslint: 書式チェック
+  - prettier: 整形
+  - eslint-config-prettier: eslint と prettier 間のルール差を吸収
+  - @typescript-eslint/eslint-plugin: eslint の typescript ルール
+  - @typescript-eslint/parser: eslint の typescript パーサ
+- test
+  - vitest
+  - @vitest/coverage-v8
+
+### 依存パッケージのインストール
+
+```bash
+npm install -D typescript tsx
+npm install -D eslint prettier eslint-config-prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser
+npm install -D vitest @vitest/coverage-v8
 ```
 
-Configure package.json as needed.
+### 設定ファイルの編集
 
-## typescript
-
-```sh
-npm install -D typscript
-npx tsc --init
-```
-
-Configure `tsconfig.json` as needed.
-
-```diff
-{
-  "compilerOptions": {
--    "target": "es2016",
-+    "target": "es2019",
-    "module": "commonjs",
-+    "sourceMap": true,
-+    "outDir": "./dist",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true
--  }
-+  },
-+  "include": ["src/**/*"]
-}
-```
-
-## tsx
-
-```sh
-npm install -D tsx
-```
-
-Configure `package.json`.
-
-```diff
-{
-  "main": "dist/index.js",
-  "scripts": {
-    "dev": "tsx src/index.ts",
-    "watch": "tsx watch src/index.ts",
-  },
-```
-
-Create `src/index.ts`.
-
-```typescript
-console.log('hello world')
-```
-
-Run without build.
-
-```sh
-npm run dev
-```
-
-Watch without build.
-
-```sh
-npm run watch
-```
-
-## vitest
-
-```sh
-npm install -D vitest @vitest/coverage-c8
-```
-
-Configure `package.json`.
-
-```diff
-{
-  "scripts": {
-+    "test": "vitest",
-+    "coverage": "vitest run --coverage"
-  },
-```
-
-Create `src/calc.ts`.
-
-```typescript
-const add = (a: number, b: number): number => a + b
-const subtract = (a: number, b: number): number => a - b
-export { add, subtract }
-```
-
-Create `src/calc.test.ts`.
-
-```typescript
-import { expect, test } from 'vitest'
-import { add, subtract } from './calc'
-
-test('adds 1 + 2 to equal 3', () => {
-  expect(add(1, 2)).toBe(3)
-})
-
-test('subtract 3 - 2 to equal 1', () => {
-  expect(subtract(3, 2)).toBe(1)
-})
-```
-
-## lint
-
-```sh
-PS D:\GitHub\vanilla-starter-template> npm init @eslint/config
-√ How would you like to use ESLint? · problems    
-√ What type of modules does your project use? · esm
-√ Which framework does your project use? · none
-√ Does your project use TypeScript? · No / Yes
-√ Where does your code run? · browser, node
-√ What format do you want your config file to be in? · JSON
-The config that you've selected requires the following dependencies:    
-
-@typescript-eslint/eslint-plugin@latest @typescript-eslint/parser@latest
-√ Would you like to install them now? · No / Yes
-√ Which package manager do you want to use? · npm
-Installing @typescript-eslint/eslint-plugin@latest, @typescript-eslint/parser@latest
-```
-
-## prettier
-
-```sh
-npm install -D prettier eslint-config-prettier
-```
-
-Create `.prettierrc.json`
-
-```json
-
-```
+- [tsconfig.json](./tsconfig.json)
+  - typescript の build 設定など
+  - [こちら](https://typescriptbook.jp/reference/tsconfig/tsconfig.json-settings)のバックエンド向け設定を利用しつつ、`console.log()` を使えるように dom ライブラリを追加
+- [.eslintrc.json](./.eslintrc.json)
+  - typescript 関連の parser と plugin を指定
+  - prettier とのバッティング解消
+- [.prettierrc.json](./.prettierrc.json)
+  - セミコロンなし、タブ2など
+- [vite.config.ts](./vite.config.ts)
+  - main をtest対象から除外(モジュールではないため)
